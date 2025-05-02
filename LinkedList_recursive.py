@@ -40,9 +40,9 @@ class LinkedList:
 
     def helper_remove(self, a_node, prev, value):
         """
-        removes all instances of a value provided
+        removes one instance of the value provided
         :param a_node: keeps track of current node
-        :param value: value to be removed
+        :param value: value to be added
         :param prev: keeps track of previous node
         :return: None
         """
@@ -52,12 +52,12 @@ class LinkedList:
         if a_node.next is None and a_node.data != value:
             return
         else:
-            # if we are in the last node, and we have the value
+            # if we are in the last node
             if a_node.data == value and a_node.next is None:
                 prev.next = a_node.next
                 return
-            # any other node with the value
-            else:
+            # any other node
+            if a_node.data == value and a_node.next is not None:
                 prev.next = a_node.next
                 self.helper_remove(a_node.next, prev, value)
 
@@ -84,10 +84,10 @@ class LinkedList:
 
 
 l = LinkedList()
-l.add(2)
-l.add(2)
-l.add(2)
-l.add(2)
+l.add(3)
+l.add(3)
+l.add(3)
+l.add(3)
 l.add(2)
 l.display()
 l.remove(2)
