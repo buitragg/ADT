@@ -24,7 +24,7 @@ class LinkedList:
         if current.next is None:
             current.next = Node(value)
             return
-        self.helper_add(a_node.next, value)
+        return self.helper_add(a_node.next, value)
 
     def add(self, value):
         """
@@ -70,7 +70,7 @@ class LinkedList:
         if self._head.data == value:
             self._head = self._head.next
             self.remove(value)
-        self.helper_remove(self._head, None, value)
+        return self.helper_remove(self._head, None, value)
 
     def helper_display(self, a_node):
         """recursive display method"""
@@ -82,13 +82,26 @@ class LinkedList:
     def display(self):
         self.helper_display(self._head)
 
+    def contains_helper(self, a_node, value):
+        if a_node is None:
+            return False
+        if a_node.data == value:
+            return True
+
+        return self.contains_helper(a_node.next, value)
+
+    def contains(self, value):
+        return self.contains_helper(self._head, value)
+
 
 l = LinkedList()
 l.add(3)
 l.add(3)
 l.add(3)
-l.add(3)
+l.add(2)
 l.add(2)
 l.display()
+print(l.contains(2))
 l.remove(2)
 l.display()
+print(l.contains(2))
