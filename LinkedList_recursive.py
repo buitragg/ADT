@@ -93,15 +93,43 @@ class LinkedList:
     def contains(self, value):
         return self.contains_helper(self._head, value)
 
+    def insert_helper(self, value, pos, a_node):
+        # helper function for insert
+
+        index = pos - 1
+        # if we are the end of the list and the pos is not 0 then add the value to the end of the list
+        if a_node.next is None and pos != 0:
+            a_node.next = Node(value)
+            return
+
+        # if position has been reached add value
+        if index <= 0:
+            new_node = Node(value)
+            new_node.next = a_node.next
+            a_node.next = new_node
+            return
+        self.insert_helper(value, pos - 1, a_node.next)
+
+    def insert(self, value, pos):
+        """
+        inserts a value at the position requested, if position is equal to or less than 1 then it is added to the
+        start of the list if the pos is larger than the length of the list it is added to the end
+        :param value: value to be added
+        :param pos: position to add value
+        :return: None
+        """
+        new_node = Node(value)
+        if pos <= 1:
+            new_node.next = self._head
+            self._head = new_node
+        else:
+            return self.insert_helper(value, pos - 1, self._head)
+
 
 l = LinkedList()
-l.add(3)
-l.add(3)
-l.add(3)
-l.add(2)
-l.add(2)
+for i in range(1, 10):
+    l.add(i)
 l.display()
-print(l.contains(2))
-l.remove(2)
+
+l.insert(3, 10)
 l.display()
-print(l.contains(2))
